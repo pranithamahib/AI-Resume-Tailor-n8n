@@ -1,28 +1,38 @@
 AI Resume Tailoring System
 
+Built by Pranitha Mahi Bandaru
+
 Overview
 
-An AI-powered resume tailoring workflow that helps job seekers optimize their resumes for specific job descriptions. The system analyzes resume-job fit, calculates ATS compatibility scores, identifies missing keywords, and generates an improved tailored resume automatically.
+An AI-powered resume tailoring workflow built using n8n and LLMs that helps job seekers optimize their resumes for specific job descriptions. The system analyzes resume-job fit, calculates ATS compatibility scores, identifies missing keywords, provides improvement suggestions, and generates a tailored resume automatically.
+
+
 
 Problem
 
-Many job seekers apply with generic resumes that do not align with job requirements. This often leads to low ATS compatibility, reduced visibility to recruiters, and fewer interview opportunities.
+Many candidates apply to jobs using generic resumes that are not aligned with the target job description. This often results in lower ATS compatibility and reduced chances of getting shortlisted.
+
+
 
 Solution
 
-This workflow analyzes a candidate's resume against a target job description, calculates an ATS score, identifies missing keywords and skill gaps, provides improvement recommendations, and generates a tailored version of the resume to improve job relevance.
+This workflow compares a candidate's resume against a target job description, calculates ATS scores, identifies missing keywords, suggests improvements, and generates a tailored resume that better matches the job requirements.
+
+
 
 Features
 
 - Resume Analysis
 - Job Description Analysis
 - ATS Score Generation
-- ATS Score Comparison (Before vs After Tailoring)
 - Missing Keyword Detection
 - Resume Strength Analysis
 - Improvement Recommendations
 - AI-Powered Resume Tailoring
-- Automated Email Delivery of Results
+- ATS Score Comparison (Before vs After Tailoring)
+- Automated Email Delivery
+
+
 
 Tools Used
 
@@ -31,6 +41,8 @@ Tools Used
 - Prompt Engineering
 - Gmail Integration
 
+
+
 Workflow
 
 1. Upload Resume
@@ -38,38 +50,76 @@ Workflow
 3. Analyze Resume Content
 4. Analyze Job Requirements
 5. Calculate ATS Compatibility Score
-6. Identify Missing Keywords and Skill Gaps
+6. Identify Missing Keywords
 7. Generate Improvement Suggestions
 8. Create Tailored Resume
 9. Recalculate ATS Score
 10. Deliver Results via Email
 
+
+
 Results
 
 - Generated ATS score for the original resume
 - Identified missing keywords and improvement areas
-- Produced an optimized resume tailored to the job description
-- Improved ATS compatibility score after tailoring
-- Delivered outputs automatically through email
+- Produced a tailored resume aligned with the job description
+- Improved ATS compatibility score
+- Delivered the complete analysis through email
+
+
+
+Project Screenshots
+
+1. n8n Workflow
+
+
+
+2. Original Resume
+
+"Original Resume" (screenshots/original_resume.png)
+
+3. Original ATS Analysis & Score
+
+"Original ATS Score" (screenshots/original_ats_score.png)
+
+4. Tailored Resume
+
+"Tailored Resume" (screenshots/tailored_resume.png)
+
+5. Tailored Resume ATS Score
+
+"Tailored ATS Score" (screenshots/tailored_ats_score.png)
+
+
 
 Repository Contents
 
 - n8n Workflow JSON
 - Project Screenshots
-- Project overview(README)
+- Project Overview (README)
+
 
 Future Improvements
 
 - Multi-Job Resume Optimization
-- Resume Version Management
-- Integration with Job Application Tracking Systems
+- Resume Version Tracking
+- Job Application Tracker Integration
 - AI Agent-Based Career Assistant
-- Dashboard for ATS Performance Analytics
+- Dashboard for ATS Analytics
+
 
 Key Learnings
 
 - Workflow Automation using n8n
 - LLM Prompt Engineering
 - ATS Optimization Concepts
-- AI-Powered Document Processing
-- End-to-End Product Thinking
+- AI-Powered Resume Processing
+- Product Thinking & Workflow Design
+
+
+
+Author
+
+Pranitha Mahi Bandaru
+
+Aspiring AI Product Manager passionate about AI-powered products, workflow automation, product strategy, and solving real-world user problems.
