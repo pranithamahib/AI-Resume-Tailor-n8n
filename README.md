@@ -80,7 +80,7 @@ Project Screenshots
 
 3. Original ATS Analysis & Score
 
-
+![image alt](https://github.com/pranithamahib/AI-Resume-Tailor-n8n/blob/3b2f996e6ce784a1a1b604d6c76de08f6d640c1a/Screenshot%20(48).png)
 
 4. Tailored Resume
 
