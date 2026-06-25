@@ -71,7 +71,7 @@ Results
 Project Screenshots
 
 1. n8n Workflow
-
+https://github.com/pranithamahib/AI-Resume-Tailor-n8n/blob/1518a402662786e8226d0700efa351b6138a6eb9/Screenshot%20(46).png
 
 
 2. Original Resume
