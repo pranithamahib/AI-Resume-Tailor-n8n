@@ -76,11 +76,11 @@ Project Screenshots
 
 2. Original Resume
 
-"Original Resume" (screenshots/original_resume.png)
+![image alt](https://github.com/pranithamahib/AI-Resume-Tailor-n8n/blob/12876f38327e97efbe8b7d50cd258b0eca9e4ae9/Screenshot%20(47).png)
 
 3. Original ATS Analysis & Score
 
-"Original ATS Score" (screenshots/original_ats_score.png)
+
 
 4. Tailored Resume
 
