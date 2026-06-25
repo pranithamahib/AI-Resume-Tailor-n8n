@@ -88,7 +88,7 @@ Project Screenshots
 
 5. Tailored Resume ATS Score
 
-"Tailored ATS Score" (screenshots/tailored_ats_score.png)
+![img alt](https://github.com/pranithamahib/AI-Resume-Tailor-n8n/blob/9504b4cda1bab36b2aaba28c90be5f28e47cbf4c/Screenshot%20(50).png)
 
 
 
