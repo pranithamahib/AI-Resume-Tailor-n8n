@@ -1,0 +1,425 @@
+{
+  "name": "AI Resume",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "AI Resume Tailor",
+        "formDescription": "Get your resume tailored for any job",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "resume_file",
+              "fieldType": "file",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Job Description",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "Additional Instruction",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f5b6cce9-550d-4945-bf65-f91a91f02c93",
+      "name": "On form submission",
+      "webhookId": "3f44956d-a3f9-48e9-9f27-91d8d0c13742"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Xs54zlokvxY6HlnbHE6rPnxPhl4cX6NQpAGaMyAn1_8",
+          "mode": "list",
+          "cachedResultName": "Resume Tailor Results",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xs54zlokvxY6HlnbHE6rPnxPhl4cX6NQpAGaMyAn1_8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Xs54zlokvxY6HlnbHE6rPnxPhl4cX6NQpAGaMyAn1_8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ new Date().toISOString() }}",
+            "job_description": "={{ $('On form submission').item.json.job_description }}",
+            "tailored_resume": "={{ $('Message a model').item.json.text }}",
+            "ats_score": "={{ JSON.parse($('Message a model1').item.json.text).ats_score }}",
+            "missing_keywords": "={{ JSON.parse($('Message a model1').item.json.text).missing_keywords.join(', ') }}",
+            "strengths": "={{ JSON.parse($('Message a model1').item.json.text).strengths.join(', ') }}",
+            "improvements": "={{ JSON.parse($('Message a model1').item.json.text).improvements.join(', ') }}",
+            "original_resume": "={{ $('On form submission').item.json.resume_text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "original_resume",
+              "displayName": "original_resume",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "job_description",
+              "displayName": "job_description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "tailored_resume",
+              "displayName": "tailored_resume",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ats_score",
+              "displayName": "ats_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "missing_keywords",
+              "displayName": "missing_keywords",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "strengths",
+              "displayName": "strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "improvements",
+              "displayName": "improvements",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1728,
+        0
+      ],
+      "id": "82cab9c3-793d-4f5c-996a-030320995fb3",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "TMj8vz8knpI7vGtE",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['Your Email'] }}",
+        "subject": "=Your Tailored Resume is Ready! ",
+        "emailType": "text",
+        "message": "=TAILORED RESUME:\n{{ $('Message a model').item.json.content.parts[0].text }}\n\nNEW ATS SCORE AFTER TAILORING:\n{{ $('Message a model1').item.json.content.parts[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1952,
+        0
+      ],
+      "id": "4041f102-683b-4d73-a6bc-6c64cf8388b7",
+      "name": "Send a message",
+      "webhookId": "a9b24cff-dfc3-4950-9b4c-728d066c23c8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wNyFbAjIgNDRapLC",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=CRITICAL INSTRUCTIONS:\n- Completely restructure the resume for the target job role\n- Move most relevant experience and skills to the top\n- Rewrite ALL bullet points using exact keywords from job description\n- Change the SUMMARY completely to match the target role\n- Reorganize SKILLS section to prioritize matching skills first\n- Make the resume obviously and significantly different from original\n\nYou are an expert ATS resume writer and technical recruiter.\n\nYour task is to tailor a candidate's resume for a specific job description.\n\nRules:\n- Do NOT invent companies, dates, degrees, certifications, or experience.\n- Do NOT fabricate achievements.\n- You may rewrite, reorganize, and rephrase existing content.\n- Prioritize experiences most relevant to the job description.\n- Optimize ATS keyword matching.\n- Highlight matching technical skills.\n- Reorder bullet points by relevance.\n- Maintain professional resume standards.\n- Keep all information truthful.\n\nOutput the resume in this exact structure:\nSUMMARY\nEXPERIENCE\nPROJECTS\nSKILLS\nEDUCATION\n\nORIGINAL RESUME:\n{{ $('Extract from File').item.json.text }}\n\nTARGET JOB DESCRIPTION:\n{{ $('On form submission').item.json['Job Description'] }}\n\nADDITIONAL INSTRUCTIONS:\n{{ $('On form submission').item.json['Additional Instruction'] }}\n\nGenerate a tailored ATS-optimized resume."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        800,
+        0
+      ],
+      "id": "6907584b-2b32-4746-998d-7b30d03db63c",
+      "name": "Message a model",
+      "retryOnFail": false,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "x9va6R3OCRcBGVLV",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an ATS scoring expert. Return ONLY this JSON, nothing else, no extra text, no resume rewriting:\n\nTAILORED RESUME:\n{{ $('Message a model').item.json.content.parts[0].text }}\n\nJOB DESCRIPTION:\n{{ $('On form submission').item.json['Job Description'] }}\n\n{\n  \"ats_score\": <number>,\n  \"missing_keywords\": [],\n  \"strengths\": [],\n  \"improvements\": []\n}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        1152,
+        0
+      ],
+      "id": "7d9e44f5-92ee-4bca-996a-2bd741c5c6d2",
+      "name": "Message a model1",
+      "retryOnFail": false,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "x9va6R3OCRcBGVLV",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "resume_file",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "9735436a-9850-4c3f-99de-f5566eba58ed",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json['Your Email'] }}",
+        "subject": "REVIEW REQUIRED — Tailored Resume Ready!",
+        "message": "=<h2>Your Original Resume ATS Analysis</h2>\n\n<h3>ORIGINAL RESUME:</h3>\n<pre>{{ $('Extract from File').item.json.text }}</pre>\n\n<h3>ORIGINAL ATS SCORE:</h3>\n<pre>{{ $('Message a model2').item.json.content.parts[0].text }}</pre>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1504,
+        0
+      ],
+      "id": "b314531c-f89b-425c-b816-6c0cd7fce578",
+      "name": "Send a message1",
+      "webhookId": "4f367761-1ce0-4ee6-ae8c-f598a65f68b4",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "wNyFbAjIgNDRapLC",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an ATS scoring expert.\n\nScore this resume against the job description and return ONLY JSON:\n\nRESUME:\n{{ $('Extract from File').item.json.text }}\n\nJOB DESCRIPTION:\n{{ $('On form submission').item.json['Job Description'] }}\n\nReturn ONLY:\n{\n  \"ats_score\": <real number 0-100>,\n  \"missing_keywords\": [\"keyword1\", \"keyword2\"],\n  \"strengths\": [\"strength1\", \"strength2\"],\n  \"improvements\": [\"improvement1\", \"improvement2\"]\n}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "4877da28-72d9-435e-939f-11498988108a",
+      "name": "Message a model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "x9va6R3OCRcBGVLV",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
